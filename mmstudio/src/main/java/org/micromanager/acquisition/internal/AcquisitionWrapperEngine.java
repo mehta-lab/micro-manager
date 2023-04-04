@@ -1,8 +1,10 @@
 package org.micromanager.acquisition.internal;
 
 import com.google.common.eventbus.Subscribe;
+import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import javax.swing.JOptionPane;
 import mmcorej.CMMCore;
@@ -16,9 +18,11 @@ import org.micromanager.Studio;
 import org.micromanager.acquisition.AcquisitionEndedEvent;
 import org.micromanager.acquisition.ChannelSpec;
 import org.micromanager.acquisition.SequenceSettings;
+import org.micromanager.data.DataProvider;
 import org.micromanager.data.Datastore;
 import org.micromanager.data.Pipeline;
 import org.micromanager.data.internal.DefaultDatastore;
+import org.micromanager.display.DisplayWindow;
 import org.micromanager.events.NewPositionListEvent;
 import org.micromanager.events.internal.InternalShutdownCommencingEvent;
 import org.micromanager.internal.MMStudio;
@@ -51,6 +55,7 @@ public final class AcquisitionWrapperEngine implements AcquisitionEngine {
       sequenceSettings_ = (new SequenceSettings.Builder()).build();
    }
 
+   @Override
    public SequenceSettings getSequenceSettings() {
       return sequenceSettings_;
    }
@@ -60,6 +65,7 @@ public final class AcquisitionWrapperEngine implements AcquisitionEngine {
     *
     * @param sequenceSettings Settings for the next acquisition.
     */
+   @Override
    public void setSequenceSettings(SequenceSettings sequenceSettings) {
       sequenceSettings_ = sequenceSettings;
       calculateSlices();
@@ -402,7 +408,12 @@ public final class AcquisitionWrapperEngine implements AcquisitionEngine {
    public boolean abortRequest() {
       if (isAcquisitionRunning()) {
          String[] options = {"Abort", "Cancel"};
-         int result = JOptionPane.showOptionDialog(null,
+         List<DisplayWindow> displays = studio_.displays().getDisplays((DataProvider) curStore_);
+         Component parentComponent = null;
+         if (displays != null && ! displays.isEmpty()) {
+            parentComponent = displays.get(0).getWindow();
+         }
+         int result = JOptionPane.showOptionDialog(parentComponent,
                "Abort current acquisition task?",
                "Micro-Manager",
                JOptionPane.DEFAULT_OPTION,
