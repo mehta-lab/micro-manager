@@ -153,6 +153,10 @@ public class DefaultDatastore implements Datastore {
       storage_ = storage;
    }
 
+   public Storage getStorage() {
+      return storage_;
+   }
+
    /**
     * Registers objects at default priority levels.
     *

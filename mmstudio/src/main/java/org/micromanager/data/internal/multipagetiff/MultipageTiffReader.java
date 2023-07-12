@@ -114,6 +114,10 @@ public final class MultipageTiffReader {
       fileChannel_ = fc;
    }
 
+   public HashMap<Coords, Long> getCoordsToOffset() {
+      return coordsToOffset_;
+   }
+
    /**
     * This constructor is used for opening datasets that have already been saved.
     */
