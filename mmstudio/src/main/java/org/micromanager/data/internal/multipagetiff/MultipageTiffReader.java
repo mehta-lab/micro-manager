@@ -114,6 +114,9 @@ public final class MultipageTiffReader {
       fileChannel_ = fc;
    }
 
+   /**
+    * Returns the HashMap that links Coords to their byte offset. 
+    */
    public HashMap<Coords, Long> getCoordsToOffset() {
       return coordsToOffset_;
    }

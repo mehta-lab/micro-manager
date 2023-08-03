@@ -153,6 +153,9 @@ public class DefaultDatastore implements Datastore {
       storage_ = storage;
    }
 
+   /**
+    * Returns the Storage of the current datastore.
+    */
    public Storage getStorage() {
       return storage_;
    }
