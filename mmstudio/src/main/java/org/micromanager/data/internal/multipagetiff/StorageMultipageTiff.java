@@ -176,6 +176,13 @@ public final class StorageMultipageTiff implements Storage {
    }
 
    /**
+    * Returns the Map that links Coords to their MulitpageTiffReader
+    */
+   public Map<Coords, MultipageTiffReader> getCoordsToReader() {
+      return coordsToReader_;
+   }
+
+   /**
     * Signals the arrival of new Summary Metadata.
     *
     * @param event contains a link to the new summary Metadata

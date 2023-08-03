@@ -115,6 +115,13 @@ public final class MultipageTiffReader {
    }
 
    /**
+    * Returns the HashMap that links Coords to their byte offset. 
+    */
+   public HashMap<Coords, Long> getCoordsToOffset() {
+      return coordsToOffset_;
+   }
+
+   /**
     * This constructor is used for opening datasets that have already been saved.
     */
    public MultipageTiffReader(StorageMultipageTiff masterStorage, File file)
